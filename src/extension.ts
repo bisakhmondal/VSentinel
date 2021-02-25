@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { MainPanel } from './MainPanel';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -6,7 +7,16 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('vsentinel.helloWorld', () => {
-		vscode.window.showInformationMessage('Hello from VSentinel!');
+			vscode.window.showInformationMessage('Hello from VSentinel!');
+			MainPanel.createOrShow(context.extensionUri);
+	})
+	
+	);
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('vsentinel.refresh', () => {
+			MainPanel.kill();
+			MainPanel.createOrShow(context.extensionUri);
 	})
 	
 	);
